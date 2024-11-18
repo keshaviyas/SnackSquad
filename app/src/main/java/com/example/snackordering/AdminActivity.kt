@@ -65,6 +65,8 @@ fun ListListScopeSample(order: List<Order>) {
             LazyColumn {
                 items(order) { order ->
                     Column(modifier = Modifier.padding(top = 16.dp, start = 48.dp, bottom = 20.dp)) {
+                        Text("Order ID: ${order.id}")
+                        Text("Item: ${order.itemName}")
                         Text("Quantity: ${order.quantity}")
                         Text("Address: ${order.address}")
                     }

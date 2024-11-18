@@ -16,6 +16,7 @@ class OrderDatabaseHelper(context: Context) :
 
         private const val TABLE_NAME = "order_table"
         private const val COLUMN_ID = "id"
+        private const val COLUMN_ITEM = "item"
         private const val COLUMN_QUANTITY = "quantity"
         private const val COLUMN_ADDRESS = "address"
     }
@@ -23,6 +24,7 @@ class OrderDatabaseHelper(context: Context) :
     override fun onCreate(db: SQLiteDatabase?) {
         val createTable = "CREATE TABLE $TABLE_NAME (" +
                 "${COLUMN_ID} INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "${COLUMN_ITEM} Text, " +
                 "${COLUMN_QUANTITY} Text, " +
                 "${COLUMN_ADDRESS} TEXT " +
                 ")"
@@ -38,6 +40,7 @@ class OrderDatabaseHelper(context: Context) :
     fun insertOrder(order: Order) {
         val db = writableDatabase
         val values = ContentValues()
+        values.put(COLUMN_ITEM, order.itemName) // Include the item value
         values.put(COLUMN_QUANTITY, order.quantity)
         values.put(COLUMN_ADDRESS, order.address)
         db.insert(TABLE_NAME, null, values)
@@ -54,6 +57,7 @@ class OrderDatabaseHelper(context: Context) :
         if (cursor.moveToFirst()) {
             order = Order(
                 id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
+                itemName = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM)), // Add this line
                 quantity = cursor.getString(cursor.getColumnIndex(COLUMN_QUANTITY)),
                 address = cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS)),
             )
@@ -70,6 +74,7 @@ class OrderDatabaseHelper(context: Context) :
         if (cursor.moveToFirst()) {
             order = Order(
                 id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
+                itemName = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM)), // Add this line
                 quantity = cursor.getString(cursor.getColumnIndex(COLUMN_QUANTITY)),
                 address = cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS)),
             )
@@ -88,6 +93,7 @@ class OrderDatabaseHelper(context: Context) :
             do {
                 val order = Order(
                     id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
+                    itemName = cursor.getString(cursor.getColumnIndex(COLUMN_ITEM)), // Add this line
                     quantity = cursor.getString(cursor.getColumnIndex(COLUMN_QUANTITY)),
                     address = cursor.getString(cursor.getColumnIndex(COLUMN_ADDRESS)),
                 )

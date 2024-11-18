@@ -62,9 +62,17 @@ fun Order(context: Context, orderDatabaseHelper: OrderDatabaseHelper){
 
         val mContext = LocalContext.current
         var quantity by remember { mutableStateOf("") }
+        var ItemName by remember { mutableStateOf("") }
         var address by remember { mutableStateOf("") }
         var error by remember { mutableStateOf("") }
 
+        TextField(value = ItemName, onValueChange = {ItemName=it},
+            label = { Text("Item") },
+            modifier = Modifier
+                .padding(10.dp)
+                .width(280.dp))
+
+        Spacer(modifier = Modifier.padding(10.dp))
 
         TextField(value = quantity, onValueChange = {quantity=it},
             label = { Text("Quantity") },
@@ -97,6 +105,7 @@ fun Order(context: Context, orderDatabaseHelper: OrderDatabaseHelper){
             if( quantity.isNotEmpty() and address.isNotEmpty()){
                 val order = Order(
                     id = null,
+                    itemName = ItemName,
                     quantity = quantity,
                     address = address
                 )
