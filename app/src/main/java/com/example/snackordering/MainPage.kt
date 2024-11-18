@@ -37,6 +37,11 @@ import com.example.snackordering.ui.theme.SnackOrderingTheme
 
 import android.content.Intent as Intent1
 
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+
+
 
 class MainPage : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +72,7 @@ fun TopPart() {
             .background(Color(0xffeceef0)), Arrangement.SpaceBetween
     ) {
         Icon(
-            imageVector = Icons.Default.Add, contentDescription = "Menu Icon",
+            imageVector = Icons.Default.Menu, contentDescription = "Menu Icon",
             Modifier
 
                 .clip(CircleShape)
@@ -82,7 +87,7 @@ fun TopPart() {
                     contentDescription = "Location",
                     tint = Color.Red,
                 )
-                Text(text = "Accra" , color = Color.Black)
+                Text(text = "Coimbatore" , color = Color.Black)
             }
 
         }
@@ -96,24 +101,7 @@ fun TopPart() {
     }
 }
 
-@Composable
-fun CardPart() {
-    Card(modifier = Modifier.size(width = 310.dp, height = 150.dp), RoundedCornerShape(20.dp)) {
-        Row(modifier = Modifier.padding(10.dp), Arrangement.SpaceBetween) {
-            Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                Text(text = "Get Special Discounts")
-                Text(text = "up to 85%", style = MaterialTheme.typography.h5)
-                Button(onClick = {}, colors = ButtonDefaults.buttonColors(Color.White)) {
-                    Text(text = "Claim voucher", color = MaterialTheme.colors.surface)
-                }
-            }
-            Image(
-                painter = painterResource(id = R.drawable.food_tip_im),
-                contentDescription = "Food Image", Modifier.size(width = 100.dp, height = 200.dp)
-            )
-        }
-    }
-}
+
 
 
 @Composable
@@ -142,7 +130,7 @@ fun PopularFood(
                     contentDescription = "Star Icon",
                     tint = Color.Yellow
                 )
-                Text(text = "4.3", fontWeight = FontWeight.Black)
+                Text(text = "5.0", fontWeight = FontWeight.Black)
             }
             Image(
                 painter = painterResource(id = drawable),
@@ -156,7 +144,7 @@ fun PopularFood(
             Row(modifier = Modifier.fillMaxWidth(0.7f), Arrangement.SpaceBetween) {
                 /*TODO Implement Prices for each card*/
                 Text(
-                    text = "$50",
+                    text = "Rs.40",
                     style = MaterialTheme.typography.h6,
                     fontWeight = FontWeight.Bold,
                     fontSize = 18.sp
@@ -185,8 +173,7 @@ fun PopularFood(
 
 private val FoodList = listOf(
     R.drawable.sandwish to R.string.sandwich,
-    R.drawable.sandwish to R.string.burgers,
-    R.drawable.pack to R.string.pack,
+    R.drawable.burger to R.string.burgers,
     R.drawable.pasta to R.string.pasta,
     R.drawable.tequila to R.string.tequila,
     R.drawable.wine to R.string.wine,
@@ -215,12 +202,11 @@ fun App(context: Context) {
             TopPart()
         }
         Spacer(modifier = Modifier.padding(10.dp))
-        CardPart()
+
 
         Spacer(modifier = Modifier.padding(10.dp))
         Row(modifier = Modifier.fillMaxWidth(), Arrangement.SpaceBetween) {
             Text(text = "Popular Food", style = MaterialTheme.typography.h5, color = Color.Black)
-            Text(text = "view all", style = MaterialTheme.typography.subtitle1,  color = Color.Black)
         }
         Spacer(modifier = Modifier.padding(10.dp))
         PopularFoodColumn(context) // <- call the function with parentheses
@@ -232,18 +218,25 @@ fun App(context: Context) {
 
 @Composable
 fun PopularFoodColumn(context: Context) {
-
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-
-        content = {
-            items(FoodList) { item ->
-                PopularFood(context = context,drawable = item.drawable, text1 = item.text1)
-                abstract class Context
-            }
-        },
-        verticalArrangement = Arrangement.spacedBy(16.dp))
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2), // 2 columns
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(1.dp), // Add padding for spacing
+        contentPadding = PaddingValues(1.dp), // Space around the grid
+        horizontalArrangement = Arrangement.spacedBy(1.dp), // Space between columns
+        verticalArrangement = Arrangement.spacedBy(1.dp) // Space between rows
+    ) {
+        items(FoodList) { item ->
+            PopularFood(
+                context = context,
+                drawable = item.drawable,
+                text1 = item.text1
+            )
+        }
+    }
 }
+
 
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")

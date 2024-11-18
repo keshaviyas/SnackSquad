@@ -6,11 +6,11 @@
 
     food names
     <string name="pack">All In One</string>
-    <string name="tequila">Tequila</string>
-    <string name="salad">Salad</string>
+    <string name="tequila">Tea</string>
+    <string name="salad">Bread Omelet</string>
     <string name="pasta">Pasta</string>
     <string name="popcorn">Pop Corn</string>
-    <string name="wine">Wine</string>
+    <string name="wine">Coffee</string>
     <string name="burgers">Burger</string>
     <string name="sandwich">Sandwich</string>
 

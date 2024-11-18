@@ -61,7 +61,7 @@ fun LoginScreen(context: Context, databaseHelper: UserDatabaseHelper) {
         Text(
             fontSize = 36.sp,
             fontWeight = FontWeight.ExtraBold,
-            fontFamily = FontFamily.Cursive,
+            fontFamily = FontFamily.Monospace,
             color = Color.White,
             text = "Login"
         )
